@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="column">
+    <div class="entry-section">
+      <h2>Entry</h2>
+      <div class="entry">
+        <label for="smileInput">Smile:</label>
+        <input type="text" id="smileInput" [(ngModel)]="smileInput" placeholder="Enter smile">
+      </div>
+      <div class="entry">
+        <label for="moleculeNameInput">Molecule Name:</label>
+        <input type="text" id="moleculeNameInput" [(ngModel)]="moleculeNameInput" placeholder="Enter molecule name">
+      </div>
+      <button (click)="generateImage()">Accept</button>
+    </div>
+
+    <div class="preview-section">
+      <h2>Preview</h2>
+      <div class="smile-preview">
+        <!-- Aquí se mostraría la visualización del smile -->
+      </div>
+      <div class="molecule-preview">
+        <div class="square">
+          <div class="molecule-view">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="substitute-section">
+      <h2>Substitutes</h2>
+      <ul>
+        @for( substitute of substitutes; track substitute;) {
+        <li>
+          <input type="checkbox" id="{{ substitute.id }}" [(ngModel)]="substitute.selected">
+          <label for="{{ substitute.id }}">{{ substitute.name }} ({{ substitute.smile }})</label>
+          <button (click)="previewSubstitute(substitute)">Preview</button>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="preview-substitute-section">
+      <h2>Substitute Preview</h2>
+      <div class="molecule-preview">
+        <div class="square">
+          <div class="molecule-view">
+            Hello!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="generate-section">
+      <button (click)="generate()">Generate</button>
+    </div>
+  </div>
+</div>
