@@ -34,13 +34,10 @@ export class SmileGeneratorComponent {
     console.log('Generating image...');
   }
 
-  // Método para previsualizar un sustituto seleccionado
   previewSubstitute(substitute: any) {
     this.selectedSubstitute = substitute;
     console.log('Previewing substitute:', substitute);
   }
-
-  // Método para generar derivados
   generate() {
     // Aquí iría la lógica para generar derivados con el sustituto seleccionado y el enlace a reemplazar
     console.log('Generating derivatives...');
