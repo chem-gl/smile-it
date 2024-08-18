@@ -1,0 +1,199 @@
+openapi: 3.0.3
+info:
+  title: API de Química
+  description: "API para generar permutaciones de moléculas, obtener imágenes basadas en SMILES, y manipular moléculas con sustituyentes, devolviendo imágenes en formato SVG."
+  version: 1.0.0
+  contact:
+    name: Equipo de Soporte
+    url: http://www.example.com/support
+    email: support@example.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+tags:
+  - name: Imágenes
+    description: Operaciones para obtener imágenes de moléculas en formato SVG.
+  - name: Permutaciones
+    description: Operaciones para generar permutaciones de moléculas.
+  - name: Síntesis
+    description: Operaciones para sintetizar moléculas con detalles de sustitución.
+  - name: Versión
+    description: Operaciones para obtener la versión de la API.
+
+paths:
+  /getMoleculeDetails:
+    get:
+      summary: Obtener detalles e imagen de una molécula
+      description: "Retorna la estructura de una molécula y su imagen SVG basada en un SMILES proporcionado."
+      tags:
+        - Imágenes
+      operationId: getMoleculeDetails
+      parameters:
+        - name: smile
+          in: query
+          required: true
+          schema:
+            type: string
+          description: SMILES que describe la molécula de la cual se desea obtener la imagen y detalles.
+      responses:
+        "200":
+          description: Detalles e imagen SVG de la molécula generada exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  molecule:
+                    $ref: "#/components/schemas/MoleculeDetails"
+                  svg_image:
+                    type: string
+                    description: Imagen de la molécula en formato SVG.
+        "400":
+          description: Error en la solicitud.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+
+  /synthesizeMoleculesWithSubstitutes:
+    post:
+      summary: Sintetizar moléculas con sustituyentes
+      description: "Recibe una molécula principal y una lista de sustituyentes, devolviendo un arreglo con todas las moléculas y sus sustituyentes generados."
+      tags:
+        - Síntesis
+      operationId: synthesizeMoleculesWithSubstitutes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SynthesisRequest"
+      responses:
+        "200":
+          description: Moléculas generadas exitosamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SynthesizedMolecule"
+        "400":
+          description: Error en la solicitud.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+
+  /getMoleculeImage:
+    post:
+      summary: Obtener imagen SVG de una molécula
+      description: "Genera y devuelve una imagen SVG coherente con la estructura de una molécula proporcionada."
+      tags:
+        - Imágenes
+      operationId: getMoleculeImage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MoleculeDetails"
+      responses:
+        "200":
+          description: Imagen SVG generada exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  svg_image:
+                    type: string
+                    description: Imagen SVG de la molécula.
+        "400":
+          description: Error en la solicitud.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+
+components:
+  schemas:
+    MoleculeDetails:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre generado o común de la molécula.
+        smile:
+          type: string
+          description: SMILES de la molécula.
+        atoms:
+          type: array
+          items:
+            $ref: "#/components/schemas/AtomPosition"
+        hasImplicitHydrogens:
+          type: boolean
+          description: Indica si la molécula tiene hidrógenos implícitos.
+        substitutionSites:
+          type: array
+          items:
+            type: integer
+          description: Índices de los átomos seleccionados como sitios de sustitución.
+
+    AtomPosition:
+      type: object
+      properties:
+        atom_index:
+          type: integer
+          description: Índice del átomo en la molécula.
+        x:
+          type: number
+          description: Coordenada X del átomo.
+        y:
+          type: number
+          description: Coordenada Y del átomo.
+
+    SynthesisRequest:
+      type: object
+      properties:
+        mainMolecule:
+          $ref: "#/components/schemas/MoleculeDetails"
+        substituents:
+          type: array
+          items:
+            $ref: "#/components/schemas/MoleculeDetails"
+
+    SynthesizedMolecule:
+      type: object
+      properties:
+        mainMolecule:
+          $ref: "#/components/schemas/MoleculeDetails"
+        substitutionDetails:
+          type: array
+          items:
+            $ref: "#/components/schemas/SubstitutionDetail"
+        resultingMolecule:
+          $ref: "#/components/schemas/MoleculeDetails"
+
+    SubstitutionDetail:
+      type: object
+      properties:
+        mainAtom:
+          $ref: "#/components/schemas/AtomPosition"
+        substituentMolecule:
+          $ref: "#/components/schemas/MoleculeDetails"
+        substituentAtom:
+          $ref: "#/components/schemas/AtomPosition"
+
+    ErrorObject:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Descripción del error.
+        code:
+          type: integer
+          description: Código numérico del error.
+        details:
+          type: string
+          description: Detalles adicionales sobre el error.
