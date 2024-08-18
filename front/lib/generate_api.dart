@@ -9,6 +9,6 @@ import 'package:openapi_generator_annotations/openapi_generator_annotations.dart
     inputSpecFile: 'openapi.yaml', // Ruta relativa al archivo OpenAPI
     generatorName: Generator.dio,
     outputDirectory:
-        'smile_it_api' // Directorio de salida para el código generado
+        'lib/smile_it_api' // Directorio de salida para el código generado
     )
 class GeneratorApi {}
