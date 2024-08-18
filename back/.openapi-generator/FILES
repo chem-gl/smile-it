@@ -1,0 +1,13 @@
+src/main/kotlin/chemgl/smileit/generated/api/ApiUtil.kt
+src/main/kotlin/chemgl/smileit/generated/api/Exceptions.kt
+src/main/kotlin/chemgl/smileit/generated/api/ImagenesApi.kt
+src/main/kotlin/chemgl/smileit/generated/api/SintesisApi.kt
+src/main/kotlin/chemgl/smileit/generated/dto/AtomPositionDto.kt
+src/main/kotlin/chemgl/smileit/generated/dto/ErrorObjectDto.kt
+src/main/kotlin/chemgl/smileit/generated/dto/GetMoleculeDetails200ResponseDto.kt
+src/main/kotlin/chemgl/smileit/generated/dto/GetMoleculeImage200ResponseDto.kt
+src/main/kotlin/chemgl/smileit/generated/dto/MoleculeDetailsDto.kt
+src/main/kotlin/chemgl/smileit/generated/dto/SubstitutionDetailDto.kt
+src/main/kotlin/chemgl/smileit/generated/dto/SynthesisRequestDto.kt
+src/main/kotlin/chemgl/smileit/generated/dto/SynthesizedMoleculeDto.kt
+src/main/kotlin/org/openapitools/SpringDocConfiguration.kt
