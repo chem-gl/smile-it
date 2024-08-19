@@ -24,26 +24,22 @@ class GenerateImage(private val smileCanonical: String, private val width: Int, 
     init {
         val sp = SmilesParser(DefaultChemObjectBuilder.getInstance())
         moleculeCDK = sp.parseSmiles(smileCanonical)
+        this._sdg.setMolecule(moleculeCDK, false)
+        this._sdg.generateCoordinates()
+        moleculeCDK = this._sdg.molecule
     }
 
 
     fun getImage(): String  {
-
-        this._sdg.setMolecule(moleculeCDK, false)
-        this._sdg.generateCoordinates()
-        moleculeCDK = this._sdg.getMolecule()
         val screen = Rectangle(0, 0, width, height)
-
         val domImpl = GenericDOMImplementation.getDOMImplementation()
         val svgNS = "http://www.w3.org/2000/svg"
         val document: Document = domImpl.createDocument(svgNS, "svg", null)
         val svgGenerator = SVGGraphics2D(document)
         val renderer = generateRender(moleculeCDK, screen)
         renderer.paint(moleculeCDK, AWTDrawVisitor(svgGenerator), screen, false)
-
         val writer = StringWriter()
         svgGenerator.stream(writer, true)
-
         println(writer.toString())
         return writer.toString()
     }
