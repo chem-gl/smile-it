@@ -25,26 +25,34 @@ class GenerateImage(private val smileCanonical: String, private val width: Int, 
         val sp = SmilesParser(DefaultChemObjectBuilder.getInstance())
         moleculeCDK = sp.parseSmiles(smileCanonical)
         this._sdg.setMolecule(moleculeCDK, false)
-        this._sdg.generateCoordinates()
+        this._sdg.generateCoordinates(  )
         moleculeCDK = this._sdg.molecule
     }
 
 
     fun getImage(): String  {
-        val screen = Rectangle(0, 0, width, height)
+      //  val screen = Rectangle( width, height)
+
+        val renderer = generateRender()
+        val screen = Rectangle(width, height)
+
+        val writer = StringWriter()
         val domImpl = GenericDOMImplementation.getDOMImplementation()
         val svgNS = "http://www.w3.org/2000/svg"
         val document: Document = domImpl.createDocument(svgNS, "svg", null)
         val svgGenerator = SVGGraphics2D(document)
-        val renderer = generateRender(moleculeCDK, screen)
+
         renderer.paint(moleculeCDK, AWTDrawVisitor(svgGenerator), screen, false)
-        val writer = StringWriter()
+        renderer.setup(moleculeCDK, screen)
+        renderer.calculateDiagramBounds(moleculeCDK)
+
+
         svgGenerator.stream(writer, true)
         println(writer.toString())
         return writer.toString()
     }
 
-    private fun generateRender(moleculeCDK: IAtomContainer, screen: Rectangle): AtomContainerRenderer {
+    private fun generateRender( ): AtomContainerRenderer {
         val generators = listOf(
             BasicSceneGenerator(),
             StandardGenerator(JLabel().font),
@@ -53,7 +61,7 @@ class GenerateImage(private val smileCanonical: String, private val width: Int, 
         )
         val renderer = AtomContainerRenderer(generators, AWTFontManager())
         renderer.renderer2DModel.set(BasicSceneGenerator.FitToScreen::class.java, false)
-        renderer.setup(moleculeCDK, screen)
+
         return renderer
     }
 
