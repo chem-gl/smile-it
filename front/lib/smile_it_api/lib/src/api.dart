@@ -10,6 +10,7 @@ import 'package:smile_it_api/src/auth/basic_auth.dart';
 import 'package:smile_it_api/src/auth/bearer_auth.dart';
 import 'package:smile_it_api/src/auth/oauth.dart';
 import 'package:smile_it_api/src/api/imagenes_api.dart';
+import 'package:smile_it_api/src/api/molecule_api.dart';
 import 'package:smile_it_api/src/api/sintesis_api.dart';
 
 class SmileItApi {
@@ -70,6 +71,12 @@ class SmileItApi {
   /// by doing that all interceptors will not be executed
   ImagenesApi getImagenesApi() {
     return ImagenesApi(dio, serializers);
+  }
+
+  /// Get MoleculeApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  MoleculeApi getMoleculeApi() {
+    return MoleculeApi(dio, serializers);
   }
 
   /// Get SintesisApi instance, base route and serializer can be overridden by a given but be careful,

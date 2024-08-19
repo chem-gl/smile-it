@@ -1,6 +1,7 @@
 src/main/kotlin/chemgl/smileit/generated/api/ApiUtil.kt
 src/main/kotlin/chemgl/smileit/generated/api/Exceptions.kt
 src/main/kotlin/chemgl/smileit/generated/api/ImagenesApi.kt
+src/main/kotlin/chemgl/smileit/generated/api/MoleculeApi.kt
 src/main/kotlin/chemgl/smileit/generated/api/SintesisApi.kt
 src/main/kotlin/chemgl/smileit/generated/dto/AtomPositionDto.kt
 src/main/kotlin/chemgl/smileit/generated/dto/ErrorObjectDto.kt

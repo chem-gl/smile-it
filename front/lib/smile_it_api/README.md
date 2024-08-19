@@ -48,13 +48,13 @@ import 'package:smile_it_api/smile_it_api.dart';
 
 
 final api = SmileItApi().getImagenesApi();
-final String smile = smile_example; // String | SMILES que describe la molécula de la cual se desea obtener la imagen y detalles.
+final MoleculeDetails moleculeDetails = ; // MoleculeDetails | 
 
 try {
-    final response = await api.getMoleculeDetails(smile);
+    final response = await api.getMoleculeImage(moleculeDetails);
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling ImagenesApi->getMoleculeDetails: $e\n");
+    print("Exception when calling ImagenesApi->getMoleculeImage: $e\n");
 }
 
 ```
@@ -65,8 +65,8 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-[*ImagenesApi*](doc/ImagenesApi.md) | [**getMoleculeDetails**](doc/ImagenesApi.md#getmoleculedetails) | **GET** /getMoleculeDetails | Obtener detalles e imagen de una molécula
 [*ImagenesApi*](doc/ImagenesApi.md) | [**getMoleculeImage**](doc/ImagenesApi.md#getmoleculeimage) | **POST** /getMoleculeImage | Obtener imagen SVG de una molécula
+[*MoleculeApi*](doc/MoleculeApi.md) | [**getMoleculeDetails**](doc/MoleculeApi.md#getmoleculedetails) | **GET** /getMoleculeDetails | Obtener detalles e imagen de una molécula
 [*SintesisApi*](doc/SintesisApi.md) | [**synthesizeMoleculesWithSubstitutes**](doc/SintesisApi.md#synthesizemoleculeswithsubstitutes) | **POST** /synthesizeMoleculesWithSubstitutes | Sintetizar moléculas con sustituyentes
 
 

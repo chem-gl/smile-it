@@ -7,23 +7,23 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
+import 'package:smile_it_api/src/api_util.dart';
 import 'package:smile_it_api/src/model/error_object.dart';
-import 'package:smile_it_api/src/model/get_molecule_image200_response.dart';
-import 'package:smile_it_api/src/model/molecule_details.dart';
+import 'package:smile_it_api/src/model/get_molecule_details200_response.dart';
 
-class ImagenesApi {
+class MoleculeApi {
 
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const ImagenesApi(this._dio, this._serializers);
+  const MoleculeApi(this._dio, this._serializers);
 
-  /// Obtener imagen SVG de una molécula
-  /// Genera y devuelve una imagen SVG coherente con la estructura de una molécula proporcionada.
+  /// Obtener detalles e imagen de una molécula
+  /// Retorna la estructura de una molécula y su imagen SVG basada en un SMILES proporcionado.
   ///
   /// Parameters:
-  /// * [moleculeDetails] 
+  /// * [smile] - SMILES que describe la molécula de la cual se desea obtener la imagen y detalles.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -31,10 +31,10 @@ class ImagenesApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetMoleculeImage200Response] as data
+  /// Returns a [Future] containing a [Response] with a [GetMoleculeDetails200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetMoleculeImage200Response>> getMoleculeImage({ 
-    required MoleculeDetails moleculeDetails,
+  Future<Response<GetMoleculeDetails200Response>> getMoleculeDetails({ 
+    required String smile,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -42,9 +42,9 @@ class ImagenesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/getMoleculeImage';
+    final _path = r'/getMoleculeDetails';
     final _options = Options(
-      method: r'POST',
+      method: r'GET',
       headers: <String, dynamic>{
         ...?headers,
       },
@@ -52,45 +52,30 @@ class ImagenesApi {
         'secure': <Map<String, String>>[],
         ...?extra,
       },
-      contentType: 'application/json',
       validateStatus: validateStatus,
     );
 
-    dynamic _bodyData;
-
-    try {
-      const _type = FullType(MoleculeDetails);
-      _bodyData = _serializers.serialize(moleculeDetails, specifiedType: _type);
-
-    } catch(error, stackTrace) {
-      throw DioException(
-         requestOptions: _options.compose(
-          _dio.options,
-          _path,
-        ),
-        type: DioExceptionType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
+    final _queryParameters = <String, dynamic>{
+      r'smile': encodeQueryParameter(_serializers, smile, const FullType(String)),
+    };
 
     final _response = await _dio.request<Object>(
       _path,
-      data: _bodyData,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetMoleculeImage200Response? _responseData;
+    GetMoleculeDetails200Response? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(GetMoleculeImage200Response),
-      ) as GetMoleculeImage200Response;
+        specifiedType: const FullType(GetMoleculeDetails200Response),
+      ) as GetMoleculeDetails200Response;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -102,7 +87,7 @@ class ImagenesApi {
       );
     }
 
-    return Response<GetMoleculeImage200Response>(
+    return Response<GetMoleculeDetails200Response>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

@@ -6,8 +6,7 @@
 package chemgl.smileit.generated.api
 
 import chemgl.smileit.generated.dto.ErrorObjectDto
-import chemgl.smileit.generated.dto.GetMoleculeImage200ResponseDto
-import chemgl.smileit.generated.dto.MoleculeDetailsDto
+import chemgl.smileit.generated.dto.GetMoleculeDetails200ResponseDto
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
 import io.swagger.v3.oas.annotations.media.*
@@ -36,23 +35,22 @@ import kotlin.collections.List
 import kotlin.collections.Map
 
 @Validated
-interface ImagenesApi {
+interface MoleculeApi {
 
     @Operation(
-        tags = ["Imagenes",],
-        summary = "Obtener imagen SVG de una molécula",
-        operationId = "getMoleculeImage",
-        description = """Genera y devuelve una imagen SVG coherente con la estructura de una molécula proporcionada.""",
+        tags = ["Molecule",],
+        summary = "Obtener detalles e imagen de una molécula",
+        operationId = "getMoleculeDetails",
+        description = """Retorna la estructura de una molécula y su imagen SVG basada en un SMILES proporcionado.""",
         responses = [
-            ApiResponse(responseCode = "200", description = "Imagen SVG generada exitosamente.", content = [Content(schema = Schema(implementation = GetMoleculeImage200ResponseDto::class))]),
+            ApiResponse(responseCode = "200", description = "Detalles e imagen SVG de la molécula generada exitosamente.", content = [Content(schema = Schema(implementation = GetMoleculeDetails200ResponseDto::class))]),
             ApiResponse(responseCode = "400", description = "Error en la solicitud.", content = [Content(schema = Schema(implementation = ErrorObjectDto::class))])
         ]
     )
     @RequestMapping(
-            method = [RequestMethod.POST],
-            value = ["/getMoleculeImage"],
-            produces = ["application/json"],
-            consumes = ["application/json"]
+            method = [RequestMethod.GET],
+            value = ["/getMoleculeDetails"],
+            produces = ["application/json"]
     )
-    fun getMoleculeImage(@Parameter(description = "", required = true) @Valid @RequestBody moleculeDetailsDto: MoleculeDetailsDto): ResponseEntity<GetMoleculeImage200ResponseDto>
+    fun getMoleculeDetails(@NotNull @Parameter(description = "SMILES que describe la molécula de la cual se desea obtener la imagen y detalles.", required = true) @Valid @RequestParam(value = "smile", required = true) smile: kotlin.String): ResponseEntity<GetMoleculeDetails200ResponseDto>
 }

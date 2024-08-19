@@ -18,6 +18,8 @@ tags:
     description: Operaciones para generar permutaciones de moléculas.
   - name: Sintesis
     description: Operaciones para sintetizar moléculas con detalles de sustitución.
+  - name: Molecule
+    description: Operaciones para obtener detalles de moléculas.
   - name: Version
     description: Operaciones para obtener la version de la API.
 
@@ -27,7 +29,7 @@ paths:
       summary: Obtener detalles e imagen de una molécula
       description: "Retorna la estructura de una molécula y su imagen SVG basada en un SMILES proporcionado."
       tags:
-        - Imagenes
+        - Molecule
       operationId: getMoleculeDetails
       parameters:
         - name: smile

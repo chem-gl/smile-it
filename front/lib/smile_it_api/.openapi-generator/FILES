@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 analysis_options.yaml
 doc/AtomPosition.md
@@ -7,6 +6,7 @@ doc/ErrorObject.md
 doc/GetMoleculeDetails200Response.md
 doc/GetMoleculeImage200Response.md
 doc/ImagenesApi.md
+doc/MoleculeApi.md
 doc/MoleculeDetails.md
 doc/SintesisApi.md
 doc/SubstitutionDetail.md
@@ -15,6 +15,7 @@ doc/SynthesizedMolecule.md
 lib/smile_it_api.dart
 lib/src/api.dart
 lib/src/api/imagenes_api.dart
+lib/src/api/molecule_api.dart
 lib/src/api/sintesis_api.dart
 lib/src/api_util.dart
 lib/src/auth/api_key_auth.dart
@@ -34,13 +35,4 @@ lib/src/model/synthesis_request.dart
 lib/src/model/synthesized_molecule.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/atom_position_test.dart
-test/error_object_test.dart
-test/get_molecule_details200_response_test.dart
-test/get_molecule_image200_response_test.dart
-test/imagenes_api_test.dart
-test/molecule_details_test.dart
-test/sintesis_api_test.dart
-test/substitution_detail_test.dart
-test/synthesis_request_test.dart
-test/synthesized_molecule_test.dart
+test/molecule_api_test.dart

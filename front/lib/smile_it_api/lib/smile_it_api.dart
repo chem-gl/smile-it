@@ -10,6 +10,7 @@ export 'package:smile_it_api/src/serializers.dart';
 export 'package:smile_it_api/src/model/date.dart';
 
 export 'package:smile_it_api/src/api/imagenes_api.dart';
+export 'package:smile_it_api/src/api/molecule_api.dart';
 export 'package:smile_it_api/src/api/sintesis_api.dart';
 
 export 'package:smile_it_api/src/model/atom_position.dart';
