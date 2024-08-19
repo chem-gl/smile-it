@@ -1,4 +1,4 @@
-import chemgl.smileit.domain.AtomPosition
+package chemgl.smileit.services
 import org.openscience.cdk.interfaces.IAtomContainer
 import org.openscience.cdk.layout.StructureDiagramGenerator
 import org.openscience.cdk.smiles.SmilesParser
@@ -15,15 +15,23 @@ import javax.swing.JLabel
 import org.openscience.cdk.renderer.font.AWTFontManager
 import org.openscience.cdk.renderer.generators.standard.StandardGenerator
 
+data class AtomPosition(val index: Int, val x: Double, val y: Double, val symbol: String)
+
 class GenerateImage(private val smileCanonical: String, private val width: Int, private val height: Int) {
     private val _sdg = StructureDiagramGenerator()
+    private lateinit var moleculeCDK: IAtomContainer;
 
-    fun getImage(): Pair<String, List<AtomPosition>> {
-        val smileParse = SmilesParser(DefaultChemObjectBuilder.getInstance())
-        val moleculeCDK: IAtomContainer = smileParse.parseSmiles(this.smileCanonical)
+    init {
+        val sp = SmilesParser(DefaultChemObjectBuilder.getInstance())
+        moleculeCDK = sp.parseSmiles(smileCanonical)
+    }
+
+
+    fun getImage(): String  {
+
         this._sdg.setMolecule(moleculeCDK, false)
         this._sdg.generateCoordinates()
-
+        moleculeCDK = this._sdg.getMolecule()
         val screen = Rectangle(0, 0, width, height)
 
         val domImpl = GenericDOMImplementation.getDOMImplementation()
@@ -36,9 +44,8 @@ class GenerateImage(private val smileCanonical: String, private val width: Int, 
         val writer = StringWriter()
         svgGenerator.stream(writer, true)
 
-        val positions = getCoordinates(moleculeCDK)
-
-        return Pair(writer.toString(), positions)
+        println(writer.toString())
+        return writer.toString()
     }
 
     private fun generateRender(moleculeCDK: IAtomContainer, screen: Rectangle): AtomContainerRenderer {
@@ -54,7 +61,7 @@ class GenerateImage(private val smileCanonical: String, private val width: Int, 
         return renderer
     }
 
-    private fun getCoordinates(moleculeCDK: IAtomContainer): List<AtomPosition> {
+    public fun getCoordinates(): List<AtomPosition> {
         return moleculeCDK.atoms().map { atom ->
             AtomPosition(atom.index, atom.point2d.x, atom.point2d.y, atom.symbol)
         }

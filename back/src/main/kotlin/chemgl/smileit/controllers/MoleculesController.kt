@@ -1,12 +1,12 @@
 package chemgl.smileit.controllers
 
 
-import GenerateImage
 import chemgl.smileit.domain.AtomPosition
 import chemgl.smileit.generated.api.MoleculeApi
 import chemgl.smileit.generated.dto.AtomPositionDto
 import chemgl.smileit.generated.dto.GetMoleculeDetails200ResponseDto
 import chemgl.smileit.generated.dto.MoleculeDetailsDto
+import chemgl.smileit.services.GenerateImage
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestMapping
@@ -32,14 +32,13 @@ class MoleculesController : MoleculeApi {
     ): ResponseEntity<GetMoleculeDetails200ResponseDto> {
         var smileCanonical = smileCanonico(smile)
         var generateImage: GenerateImage = GenerateImage(smileCanonical, 500, 500);
-        var resultado :Pair <String, List<AtomPosition>> = generateImage.getImage();
-        var imageSvg = resultado.first;
-        var listaCordenadas = resultado.second;
-        println(imageSvg)
+
+        var imageSvg = generateImage.getImage()
+        var listaCordenadas = generateImage.getCoordinates()
         var  molecule: MoleculeDetailsDto  =  MoleculeDetailsDto(
             name =  aliasName,
             smile =  smileCanonical,
-            atoms =  listaCordenadas.map { AtomPositionDto(it.atomIndex,BigDecimal( it.x),BigDecimal( it.y), it.smile) },
+            atoms =  listaCordenadas.map { AtomPositionDto(it.index ,BigDecimal( it.x),BigDecimal( it.y), it.symbol) },
             hasImplicitHydrogens = hasImplicitHydrogens,
             substitutionSites = listOf()
 
