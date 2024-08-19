@@ -19,6 +19,9 @@ abstract class MoleculeMapper {
 abstract class AtomPositionMapper {
     abstract fun toAtomPositionDto(atomPosition: AtomPosition): AtomPositionDto
     abstract fun toAtomPosition(atomPositionDto: AtomPositionDto): AtomPosition
+
+
+    abstract fun toAtomPositionDtoList(listaCordenadas: List<AtomPosition>): List<AtomPositionDto>?
 }
 
 @Mapper(componentModel = "spring")
@@ -44,3 +47,4 @@ abstract class SubstitutionDetailMapper {
     abstract fun toSubstitutionDetailDto(substitutionDetail: SubstitutionDetail): SubstitutionDetailDto
     abstract fun toSubstitutionDetail(substitutionDetailDto: SubstitutionDetailDto): SubstitutionDetail
 }
+

@@ -32,9 +32,7 @@ val mapStructVersion = "1.5.5.Final"
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    compileOnly("org.projectlombok:lombok")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("jakarta.validation:jakarta.validation-api:2.0.2")
     implementation("javax.servlet:javax.servlet-api:3.1.0")
@@ -44,11 +42,16 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.mariadb.jdbc:mariadb-java-client:3.1.0") // Asegúrate de que la versión sea la más reciente.
-    kapt("org.mapstruct:mapstruct-processor:$mapStructVersion")
+    implementation("org.mariadb.jdbc:mariadb-java-client:3.1.0")
+	implementation("org.openscience.cdk:cdk-bundle:2.9")
+	implementation("org.apache.xmlgraphics:batik-transcoder:1.14")
+	implementation("org.apache.xmlgraphics:batik-codec:1.14")
+	kapt("org.mapstruct:mapstruct-processor:$mapStructVersion")
+	compileOnly("org.projectlombok:lombok")
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 

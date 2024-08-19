@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.media.Schema
  * @param atomIndex Índice del átomo en la molécula.
  * @param x Coordenada X del átomo.
  * @param y Coordenada Y del átomo.
+ * @param smile SMILES del átomo.
  */
 data class AtomPositionDto(
 
@@ -28,7 +29,10 @@ data class AtomPositionDto(
     @get:JsonProperty("x") val x: java.math.BigDecimal? = null,
 
     @Schema(example = "null", description = "Coordenada Y del átomo.")
-    @get:JsonProperty("y") val y: java.math.BigDecimal? = null
+    @get:JsonProperty("y") val y: java.math.BigDecimal? = null,
+
+    @Schema(example = "null", description = "SMILES del átomo.")
+    @get:JsonProperty("smile") val smile: kotlin.String? = null
 ) {
 
 }

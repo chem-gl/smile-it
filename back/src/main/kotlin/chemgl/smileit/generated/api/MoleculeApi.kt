@@ -52,5 +52,5 @@ interface MoleculeApi {
             value = ["/getMoleculeDetails"],
             produces = ["application/json"]
     )
-    fun getMoleculeDetails(@NotNull @Parameter(description = "SMILES que describe la molécula de la cual se desea obtener la imagen y detalles.", required = true) @Valid @RequestParam(value = "smile", required = true) smile: kotlin.String): ResponseEntity<GetMoleculeDetails200ResponseDto>
+    fun getMoleculeDetails(@NotNull @Parameter(description = "SMILES que describe la molécula de la cual se desea obtener la imagen y detalles.", required = true) @Valid @RequestParam(value = "smile", required = true) smile: kotlin.String,@Parameter(description = "Indica si la molécula debe tener hidrógenos implícitos.") @Valid @RequestParam(value = "hasImplicitHydrogens", required = false) hasImplicitHydrogens: kotlin.Boolean?,@Parameter(description = "Nombre común o alias de la molécula.") @Valid @RequestParam(value = "aliasName", required = false) aliasName: kotlin.String?): ResponseEntity<GetMoleculeDetails200ResponseDto>
 }

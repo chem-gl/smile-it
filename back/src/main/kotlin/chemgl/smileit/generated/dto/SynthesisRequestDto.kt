@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 /**
  * 
  * @param mainMolecule 
- * @param substituents 
+ * @param substitutes 
  */
 data class SynthesisRequestDto(
 
@@ -27,7 +27,7 @@ data class SynthesisRequestDto(
 
     @field:Valid
     @Schema(example = "null", description = "")
-    @get:JsonProperty("substituents") val substituents: kotlin.collections.List<MoleculeDetailsDto>? = null
+    @get:JsonProperty("substitutes") val substitutes: kotlin.collections.List<MoleculeDetailsDto>? = null
 ) {
 
 }
