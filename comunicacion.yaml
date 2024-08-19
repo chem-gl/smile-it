@@ -38,6 +38,18 @@ paths:
           schema:
             type: string
           description: SMILES que describe la molécula de la cual se desea obtener la imagen y detalles.
+        - name: hasImplicitHydrogens
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: Indica si la molécula debe tener hidrógenos implícitos.
+        - name: aliasName
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Nombre común o alias de la molécula.
       responses:
         "200":
           description: Detalles e imagen SVG de la molécula generada exitosamente.
@@ -154,13 +166,16 @@ components:
         y:
           type: number
           description: Coordenada Y del átomo.
+        smile:
+          type: string
+          description: SMILES del átomo.
 
     SynthesisRequest:
       type: object
       properties:
         mainMolecule:
           $ref: "#/components/schemas/MoleculeDetails"
-        substituents:
+        substitutes:
           type: array
           items:
             $ref: "#/components/schemas/MoleculeDetails"
