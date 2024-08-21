@@ -1,8 +1,8 @@
-package chemgl.smileit.generated.dto
+package chemgl.api.generated.dto
 
 import java.util.Objects
-import chemgl.smileit.generated.dto.MoleculeDetailsDto
-import chemgl.smileit.generated.dto.SubstitutionDetailDto
+import chemgl.api.generated.dto.AtomPositionDto
+import chemgl.api.generated.dto.MoleculeDetailsDto
 import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.DecimalMax
 import javax.validation.constraints.DecimalMin
@@ -17,23 +17,23 @@ import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * 
- * @param mainMolecule 
- * @param substitutionDetails 
- * @param resultingMolecule 
+ * @param mainAtom 
+ * @param substituentMolecule 
+ * @param substituentAtom 
  */
-data class SynthesizedMoleculeDto(
+data class SubstitutionDetailDto(
 
     @field:Valid
     @Schema(example = "null", description = "")
-    @get:JsonProperty("mainMolecule") val mainMolecule: MoleculeDetailsDto? = null,
+    @get:JsonProperty("mainAtom") val mainAtom: AtomPositionDto? = null,
 
     @field:Valid
     @Schema(example = "null", description = "")
-    @get:JsonProperty("substitutionDetails") val substitutionDetails: kotlin.collections.List<SubstitutionDetailDto>? = null,
+    @get:JsonProperty("substituentMolecule") val substituentMolecule: MoleculeDetailsDto? = null,
 
     @field:Valid
     @Schema(example = "null", description = "")
-    @get:JsonProperty("resultingMolecule") val resultingMolecule: MoleculeDetailsDto? = null
+    @get:JsonProperty("substituentAtom") val substituentAtom: AtomPositionDto? = null
 ) {
 
 }

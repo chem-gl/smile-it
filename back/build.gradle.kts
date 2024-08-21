@@ -72,13 +72,13 @@ openApiGenerate {
 	groupId = "$group"
 	modelNameSuffix = "Dto"
 
-	packageName = "chemgl.smileit.generated"
-	apiPackage = "chemgl.smileit.generated.api"
-	modelPackage = "chemgl.smileit.generated.dto"
+	packageName 	= "chemgl.api.generated"
+	apiPackage 		= "chemgl.api.generated.api"
+	modelPackage 	= "chemgl.api.generated.dto"
 
 	additionalProperties.put("interfaceOnly", true)
 	additionalProperties.put("skipDefaultInterface", true)
-	additionalProperties.put("configPackage", "chemgl.smileit.generated.config")
+	additionalProperties.put("configPackage", "chemgl.api.generated.config")
 	additionalProperties.put("useTags", true)
 	additionalProperties.put("hideGenerationTimestamp", true)
 }

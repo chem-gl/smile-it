@@ -1,7 +1,7 @@
-package chemgl.smileit.generated.dto
+package chemgl.api.generated.dto
 
 import java.util.Objects
-import chemgl.smileit.generated.dto.AtomPositionDto
+import chemgl.api.generated.dto.AtomPositionDto
 import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.DecimalMax
 import javax.validation.constraints.DecimalMin

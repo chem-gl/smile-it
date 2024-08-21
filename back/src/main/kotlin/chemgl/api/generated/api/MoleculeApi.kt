@@ -3,10 +3,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
 */
-package chemgl.smileit.generated.api
+package chemgl.api.generated.api
 
-import chemgl.smileit.generated.dto.ErrorObjectDto
-import chemgl.smileit.generated.dto.GetMoleculeDetails200ResponseDto
+import chemgl.api.generated.dto.ErrorObjectDto
+import chemgl.api.generated.dto.GetMoleculeDetails200ResponseDto
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
 import io.swagger.v3.oas.annotations.media.*

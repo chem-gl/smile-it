@@ -19,7 +19,7 @@ class SpringDocConfiguration {
             .info(
                 Info()
                     .title("API de Química")
-                    .description("API para generar permutaciones de moléculas, obtener imagenes basadas en SMILES, y manipular moléculas con sustituyentes, devolviendo imagenes en formato SVG.")
+                    .description("API para generar permutaciones de moléculas, obtener imágenes basadas en SMILES, y manipular moléculas con sustituyentes, devolviendo imágenes en formato SVG.")
                     .contact(
                         Contact()
                             .name("Equipo de Soporte")

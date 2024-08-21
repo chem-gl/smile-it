@@ -3,11 +3,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
 */
-package chemgl.smileit.generated.api
+package chemgl.api.generated.api
 
-import chemgl.smileit.generated.dto.ErrorObjectDto
-import chemgl.smileit.generated.dto.GetMoleculeImage200ResponseDto
-import chemgl.smileit.generated.dto.MoleculeDetailsDto
+import chemgl.api.generated.dto.GetApiVersion200ResponseDto
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
 import io.swagger.v3.oas.annotations.media.*
@@ -36,23 +34,21 @@ import kotlin.collections.List
 import kotlin.collections.Map
 
 @Validated
-interface ImagenesApi {
+interface VersionApi {
 
     @Operation(
-        tags = ["Imagenes",],
-        summary = "Obtener imagen SVG de una molécula",
-        operationId = "getMoleculeImage",
-        description = """Genera y devuelve una imagen SVG coherente con la estructura de una molécula proporcionada.""",
+        tags = ["Version",],
+        summary = "Obtener la versión de la API",
+        operationId = "getApiVersion",
+        description = """Retorna la versión actual de la API.""",
         responses = [
-            ApiResponse(responseCode = "200", description = "Imagen SVG generada exitosamente.", content = [Content(schema = Schema(implementation = GetMoleculeImage200ResponseDto::class))]),
-            ApiResponse(responseCode = "400", description = "Error en la solicitud.", content = [Content(schema = Schema(implementation = ErrorObjectDto::class))])
+            ApiResponse(responseCode = "200", description = "Versión de la API retornada exitosamente.", content = [Content(schema = Schema(implementation = GetApiVersion200ResponseDto::class))])
         ]
     )
     @RequestMapping(
-            method = [RequestMethod.POST],
-            value = ["/getMoleculeImage"],
-            produces = ["application/json"],
-            consumes = ["application/json"]
+            method = [RequestMethod.GET],
+            value = ["/getApiVersion"],
+            produces = ["application/json"]
     )
-    fun getMoleculeImage(@Parameter(description = "", required = true) @Valid @RequestBody moleculeDetailsDto: MoleculeDetailsDto): ResponseEntity<GetMoleculeImage200ResponseDto>
+    fun getApiVersion(): ResponseEntity<GetApiVersion200ResponseDto>
 }

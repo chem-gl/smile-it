@@ -1,4 +1,4 @@
-package chemgl.smileit.generated.dto
+package chemgl.api.generated.dto
 
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -15,12 +15,12 @@ import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * 
- * @param svgImage Imagen SVG de la molécula.
+ * @param version La versión actual de la API.
  */
-data class GetMoleculeImage200ResponseDto(
+data class GetApiVersion200ResponseDto(
 
-    @Schema(example = "null", description = "Imagen SVG de la molécula.")
-    @get:JsonProperty("svg_image") val svgImage: kotlin.String? = null
+    @Schema(example = "null", description = "La versión actual de la API.")
+    @get:JsonProperty("version") val version: kotlin.String? = null
 ) {
 
 }

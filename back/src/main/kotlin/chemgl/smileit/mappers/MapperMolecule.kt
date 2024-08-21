@@ -1,8 +1,9 @@
 
 package chemgl.smileit.mappers
 
+import chemgl.api.generated.dto.*
 import chemgl.smileit.domain.*
-import chemgl.smileit.generated.dto.*
+
 import org.mapstruct.Mapper
 
 

@@ -1,4 +1,4 @@
-package chemgl.smileit.generated.dto
+package chemgl.api.generated.dto
 
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty

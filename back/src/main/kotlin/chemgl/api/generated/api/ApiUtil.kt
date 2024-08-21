@@ -1,4 +1,4 @@
-package chemgl.smileit.generated.api
+package chemgl.api.generated.api
 
 import org.springframework.web.context.request.NativeWebRequest
 

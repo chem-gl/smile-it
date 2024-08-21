@@ -3,11 +3,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
 */
-package chemgl.smileit.generated.api
+package chemgl.api.generated.api
 
-import chemgl.smileit.generated.dto.ErrorObjectDto
-import chemgl.smileit.generated.dto.SynthesisRequestDto
-import chemgl.smileit.generated.dto.SynthesizedMoleculeDto
+import chemgl.api.generated.dto.ErrorObjectDto
+import chemgl.api.generated.dto.SynthesisRequestDto
+import chemgl.api.generated.dto.SynthesizedMoleculeDto
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
 import io.swagger.v3.oas.annotations.media.*
@@ -36,10 +36,10 @@ import kotlin.collections.List
 import kotlin.collections.Map
 
 @Validated
-interface SintesisApi {
+interface PermutasApi {
 
     @Operation(
-        tags = ["Sintesis",],
+        tags = ["Permutas",],
         summary = "Sintetizar moléculas con sustituyentes",
         operationId = "synthesizeMoleculesWithSubstitutes",
         description = """Recibe una molécula principal y una lista de sustituyentes, devolviendo un arreglo con todas las moléculas y sus sustituyentes generados.""",
