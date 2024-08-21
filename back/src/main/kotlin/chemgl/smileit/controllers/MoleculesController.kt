@@ -31,7 +31,7 @@ class MoleculesController : MoleculeApi {
         aliasName: String?
     ): ResponseEntity<GetMoleculeDetails200ResponseDto> {
         var smileCanonical = smileCanonico(smile)
-        var generateImage: GenerateImage = GenerateImage(smileCanonical, 500, 500);
+        var generateImage: GenerateImage = GenerateImage(smileCanonical, 1500, 1500);
 
         var imageSvg = generateImage.getImage()
         var listaCordenadas = generateImage.getCoordinates()

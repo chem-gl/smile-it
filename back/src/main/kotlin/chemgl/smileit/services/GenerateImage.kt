@@ -1,4 +1,5 @@
 package chemgl.smileit.services
+
 import org.openscience.cdk.interfaces.IAtomContainer
 import org.openscience.cdk.layout.StructureDiagramGenerator
 import org.openscience.cdk.smiles.SmilesParser
@@ -20,54 +21,57 @@ data class AtomPosition(val index: Int, val x: Double, val y: Double, val symbol
 class GenerateImage(private val smileCanonical: String, private val width: Int, private val height: Int) {
     private val _sdg = StructureDiagramGenerator()
     private lateinit var moleculeCDK: IAtomContainer;
+    private var atomLocate: List<AtomPosition> = mutableListOf<AtomPosition>()
 
     init {
         val sp = SmilesParser(DefaultChemObjectBuilder.getInstance())
         moleculeCDK = sp.parseSmiles(smileCanonical)
         this._sdg.setMolecule(moleculeCDK, false)
-        this._sdg.generateCoordinates(  )
+        this._sdg.generateCoordinates()
         moleculeCDK = this._sdg.molecule
     }
 
 
-    fun getImage(): String  {
-      //  val screen = Rectangle( width, height)
-
-        val renderer = generateRender()
+    fun getImage(): String {
+        val renderer = AtomContainerRenderer(
+            listOf(
+                BasicSceneGenerator(),
+                StandardGenerator(JLabel().font),
+            ), AWTFontManager()
+        )
+        renderer.renderer2DModel.set(BasicSceneGenerator.FitToScreen::class.java, true)
         val screen = Rectangle(width, height)
 
+        val svgGenerator = SVGGraphics2D(
+            GenericDOMImplementation.getDOMImplementation().createDocument("http://www.w3.org/2000/svg", "svg", null)
+        )
         val writer = StringWriter()
-        val domImpl = GenericDOMImplementation.getDOMImplementation()
-        val svgNS = "http://www.w3.org/2000/svg"
-        val document: Document = domImpl.createDocument(svgNS, "svg", null)
-        val svgGenerator = SVGGraphics2D(document)
-
-        renderer.paint(moleculeCDK, AWTDrawVisitor(svgGenerator), screen, false)
         renderer.setup(moleculeCDK, screen)
-        renderer.calculateDiagramBounds(moleculeCDK)
-
+        renderer.paint(moleculeCDK, AWTDrawVisitor(svgGenerator), screen, true)
 
         svgGenerator.stream(writer, true)
-        println(writer.toString())
-        return writer.toString()
-    }
 
-    private fun generateRender( ): AtomContainerRenderer {
-        val generators = listOf(
-            BasicSceneGenerator(),
-            StandardGenerator(JLabel().font),
-            BasicBondGenerator(),
-            BasicAtomGenerator()
-        )
-        val renderer = AtomContainerRenderer(generators, AWTFontManager())
-        renderer.renderer2DModel.set(BasicSceneGenerator.FitToScreen::class.java, false)
+        var svg = writer.toString()
+        atomLocate = moleculeCDK.atoms().map { atom ->
+            val pos = renderer.toScreenCoordinates(atom.point2d.x, atom.point2d.y)
+            AtomPosition(atom.index, pos.x, pos.y, atom.symbol)
+        }
+        svg = svg.replace("\n", "")
+        for (atom in atomLocate) {
 
-        return renderer
+            svg = svg.replace(
+                "</svg>",
+                "<circle cx=\"${atom.x}\" cy=\"${atom.y}\" r=\"2\" fill=\"red\" border=\"blue\" /></svg>"
+            )
+        }
+        println(svg)
+        return svg
     }
 
     public fun getCoordinates(): List<AtomPosition> {
-        return moleculeCDK.atoms().map { atom ->
-            AtomPosition(atom.index, atom.point2d.x, atom.point2d.y, atom.symbol)
+        if (atomLocate.size <= 0) {
+            throw Exception("no se han generado los puntos")
         }
+        return atomLocate
     }
 }
