@@ -17,17 +17,17 @@ class MoleculesController : MoleculeApi {
         hasImplicitHydrogens: Boolean?,
         aliasName: String?
     ): ResponseEntity<GetMoleculeDetails200ResponseDto> {
-        val smileCanonical = SmileProcessor().canonicSmile(smile)
+        val smileCanonical :String   = SmileProcessor().canonicSmile(smile)
         val generateImage  = GenerateImage(smileCanonical);
-        val imageSvg       =  generateImage.getImage()
+        val imageSvg       = generateImage.getImage()
         val atomPositions  = generateImage.getCoordinates()
-        val molecule       =  MoleculeDetailsDto(
+        val moleculeDto       =  MoleculeDetailsDto(
             name  =  aliasName,
             smile =  smileCanonical,
             atoms =  atomPositions.map { AtomPositionDto(it.atomIndex, it.x, it.y, it.smile) },
             hasImplicitHydrogens = hasImplicitHydrogens,
             substitutionSites = listOf()
         );
-        return ResponseEntity.ok(GetMoleculeDetails200ResponseDto(molecule, imageSvg));
+        return ResponseEntity.ok(GetMoleculeDetails200ResponseDto(moleculeDto, imageSvg));
     }
 }
